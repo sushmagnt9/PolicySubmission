@@ -31,15 +31,14 @@ namespace PolicySubmission.DatabaseEntity
         {
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("User");
+
+                entity.HasIndex(e => e.UserName, "UQ__User__C9F2845609FE7D29")
+                    .IsUnique();
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.UserId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(100)
