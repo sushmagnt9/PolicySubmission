@@ -44,6 +44,10 @@ namespace PolicySubmission.DatabaseEntity
                 entity.Property(e => e.UserName)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UserRole)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
