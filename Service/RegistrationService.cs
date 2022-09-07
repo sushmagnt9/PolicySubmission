@@ -9,19 +9,36 @@ namespace PolicySubmission.Service
         {
             _policySubmissionContext = policySubmissionContext;
         }
+        public List<MemberRegistration> GetAllMembers()
+        {
+            return _policySubmissionContext.MemberRegistrations.ToList();
+        }
         public string CreateMember(MemberRegistration member)
         {
             try
             {
-                _policySubmissionContext.MemberRegistrations.Add(member);
+                MemberRegistration m = new MemberRegistration();
+                m.UserName = member.UserName;
+                m.FirstName = member.FirstName;
+                m.LastName = member.LastName;
+                m.Email = member.Email;
+                m.Dob = member.Dob;
+                m.Address = member.Address;
+                m.State = member.State;
+                m.Email = member.Email;
+                _policySubmissionContext.MemberRegistrations.Add(m);
                 _policySubmissionContext.SaveChanges();
             }
             catch (Exception ex)
             {
-                return $"User Operation failed {ex.Message}";
+                return $"member Operation failed {ex.Message}";
             }
-            return "User Details saved sucessfully";
+            return "Member Details saved sucessfully";
 
+        }
+        public List<MemberRegistration> SearchMember(MemberRegistration member)
+        {
+            return _policySubmissionContext.MemberRegistrations.Where(x => (x.FirstName == member.FirstName && x.LastName == member.LastName)).ToList();
         }
     }
 }
