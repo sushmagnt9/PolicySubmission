@@ -16,6 +16,7 @@ namespace PolicySubmission.DatabaseEntity
         {
         }
 
+        public virtual DbSet<MemberRegistration> MemberRegistrations { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,11 +30,48 @@ namespace PolicySubmission.DatabaseEntity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<MemberRegistration>(entity =>
+            {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__MemberRe__1788CC4C301656B8");
+
+                entity.ToTable("MemberRegistration");
+
+                entity.HasIndex(e => e.UserName, "UQ__MemberRe__C9F2845652E9802B")
+                    .IsUnique();
+
+                entity.Property(e => e.Address).IsUnicode(false);
+
+                entity.Property(e => e.Dob)
+                    .HasColumnType("datetime")
+                    .HasColumnName("DOB");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.State)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
 
-                entity.HasIndex(e => e.UserName, "UQ__User__C9F2845609FE7D29")
+                entity.HasIndex(e => e.UserName, "UQ__User__C9F284569175786E")
                     .IsUnique();
 
                 entity.Property(e => e.Password)
