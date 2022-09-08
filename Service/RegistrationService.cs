@@ -50,7 +50,8 @@ namespace PolicySubmission.Service
                     select new{MemberId =m.MemberId,PolicyId= t.MemberId == null ? 0 : (t.MemberId),UserName = m.UserName,FirstName = m.FirstName,
                     LastName = m.LastName,
                         //policyId= t.PolicyId == null ? 0 : (t.PolicyId),
-                        policyStatus = (t.PolicyStatus == null || t.PolicyStatus == "" ) ? "No Policy Found" : t.PolicyStatus, policyType = t.PolicyType , premimumAmount = t.PremiumAmount
+                        policyStatus = (t.PolicyStatus == null || t.PolicyStatus == "" ) ? "No Policy Found" : t.PolicyStatus, policyType = t.PolicyType , 
+                        premiumAmount = t.PremiumAmount
                     };
             return x;
         }
