@@ -17,6 +17,7 @@ namespace PolicySubmission.DatabaseEntity
         }
 
         public virtual DbSet<MemberRegistration> MemberRegistrations { get; set; } = null!;
+        public virtual DbSet<Policy> Policies { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,13 +33,10 @@ namespace PolicySubmission.DatabaseEntity
         {
             modelBuilder.Entity<MemberRegistration>(entity =>
             {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__MemberRe__1788CC4C301656B8");
+                entity.HasKey(e => e.MemberId)
+                    .HasName("PK__MemberRe__0CF04B185B4509A5");
 
                 entity.ToTable("MemberRegistration");
-
-                entity.HasIndex(e => e.UserName, "UQ__MemberRe__C9F2845652E9802B")
-                    .IsUnique();
 
                 entity.Property(e => e.Address).IsUnicode(false);
 
@@ -65,6 +63,35 @@ namespace PolicySubmission.DatabaseEntity
                 entity.Property(e => e.UserName)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Policy>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Policy");
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PolicyId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.PolicyStatus)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PolicyType)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PremiumAmount)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Member)
+                    .WithMany()
+                    .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Policy__MemberId__33D4B598");
             });
 
             modelBuilder.Entity<User>(entity =>

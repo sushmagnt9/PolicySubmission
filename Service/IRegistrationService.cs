@@ -7,6 +7,6 @@ namespace PolicySubmission.Service
         List<MemberRegistration> GetAllMembers();
         string CreateMember(MemberRegistration member);
        //List<MemberRegistration> SearchMember(MemberRegistration member);
-        MemberRegistration GetMemberById(int userId);
+        object GetMemberById(int userId);
     }
 }
