@@ -24,7 +24,6 @@ namespace PolicySubmission.Controllers
             string result = _iRegistrationService.CreateMember(member);
             return Ok(new { _result = result });
         }
-        [HttpPost("SearchMember")]
         //public List<MemberRegistration> SearchMember([FromBody] MemberRegistration member)
         //{
         //    try
