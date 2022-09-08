@@ -19,22 +19,42 @@ namespace PolicySubmission.Controllers
             return Ok(_iRegistrationService.GetAllMembers());
         }
         [HttpPost]
-        public ActionResult<string> CreateMember ([FromBody] MemberRegistration member)
+        public ActionResult<string> CreateMember([FromBody] MemberRegistration member)
         {
             string result = _iRegistrationService.CreateMember(member);
             return Ok(new { _result = result });
         }
         [HttpPost("SearchMember")]
-        public List<MemberRegistration> SearchMember([FromBody] MemberRegistration member)
+        //public List<MemberRegistration> SearchMember([FromBody] MemberRegistration member)
+        //{
+        //    try
+        //    {
+        //        return _iRegistrationService.SearchMember(member);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new List<MemberRegistration>();
+        //    }
+        //}
+        [HttpGet("GetMemberById")]
+        public ActionResult<List<MemberRegistration>> GetMemberById(string userId)
         {
+            string result = string.Empty;
             try
             {
-                return _iRegistrationService.SearchMember(member);
+                List<MemberRegistration> members = new List<MemberRegistration>();
+                MemberRegistration member = _iRegistrationService.GetMemberById(Convert.ToInt32(userId));
+                members.Add(member);
+                if (member != null)
+                            return Ok(members);
+                        else
+                            result = "user not found";
             }
             catch (Exception ex)
             {
-                return new List<MemberRegistration>();
+                result = ex.Message;
             }
+            return Ok(result.ToList());
         }
     }
 }

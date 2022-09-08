@@ -36,9 +36,15 @@ namespace PolicySubmission.Service
             return "Member Details saved sucessfully";
 
         }
-        public List<MemberRegistration> SearchMember(MemberRegistration member)
+        //public List<MemberRegistration> SearchMember(MemberRegistration member)
+        //{
+        //    return _policySubmissionContext.MemberRegistrations.Where(x => (x.FirstName == member.FirstName && x.LastName == member.LastName)).ToList();
+        //}
+
+        public MemberRegistration GetMemberById(int UserId)
         {
-            return _policySubmissionContext.MemberRegistrations.Where(x => (x.FirstName == member.FirstName && x.LastName == member.LastName)).ToList();
+            var user = _policySubmissionContext.MemberRegistrations.Where(b => b.UserId == UserId).FirstOrDefault();
+            return user;
         }
     }
 }
