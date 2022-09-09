@@ -9,7 +9,7 @@ namespace PolicySubmission.DatabaseEntity
         public string PolicyStatus { get; set; } = null!;
         public string PolicyType { get; set; } = null!;
         public string PremiumAmount { get; set; } = null!;
-        public DateTime CreatedDate { get; set; }
+        public DateTime PolicyEffectiveDate { get; set; }
         public int MemberId { get; set; }
 
         public virtual MemberRegistration Member { get; set; } = null!;

@@ -71,7 +71,7 @@ namespace PolicySubmission.DatabaseEntity
 
                 entity.ToTable("Policy");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.Property(e => e.PolicyEffectiveDate).HasColumnType("datetime");
 
                 entity.Property(e => e.PolicyId).ValueGeneratedOnAdd();
 
@@ -91,7 +91,7 @@ namespace PolicySubmission.DatabaseEntity
                     .WithMany()
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Policy__MemberId__33D4B598");
+                    .HasConstraintName("FK__Policy__MemberId__35BCFE0A");
             });
 
             modelBuilder.Entity<User>(entity =>

@@ -51,7 +51,7 @@ namespace PolicySubmission.Service
                     LastName = m.LastName,
                         //policyId= t.PolicyId == null ? 0 : (t.PolicyId),
                         policyStatus = (t.PolicyStatus == null || t.PolicyStatus == "" ) ? "No Policy Found" : t.PolicyStatus, policyType = t.PolicyType , 
-                        premiumAmount = t.PremiumAmount
+                        premiumAmount = t.PremiumAmount, CreatedDate = t.CreatedDate
                     };
             return x;
         }
