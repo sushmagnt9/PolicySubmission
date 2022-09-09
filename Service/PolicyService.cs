@@ -14,6 +14,7 @@ namespace PolicySubmission.Service
             try
             {
                 Policy p = new Policy();
+                p.PolicyId = policy.PolicyId;
                 p.PolicyStatus = policy.PolicyStatus;
                 p.PolicyType = policy.PolicyType;
                 p.PolicyEffectiveDate = policy.PolicyEffectiveDate;

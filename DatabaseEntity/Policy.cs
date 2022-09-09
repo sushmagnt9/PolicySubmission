@@ -12,6 +12,6 @@ namespace PolicySubmission.DatabaseEntity
         public DateTime PolicyEffectiveDate { get; set; }
         public int MemberId { get; set; }
 
-        public virtual MemberRegistration Member { get; set; } = null!;
+        //public virtual MemberRegistration Member { get; set; } = null!;
     }
 }

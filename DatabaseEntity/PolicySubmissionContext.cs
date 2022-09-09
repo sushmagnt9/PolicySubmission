@@ -67,13 +67,9 @@ namespace PolicySubmission.DatabaseEntity
 
             modelBuilder.Entity<Policy>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Policy");
 
                 entity.Property(e => e.PolicyEffectiveDate).HasColumnType("datetime");
-
-                entity.Property(e => e.PolicyId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.PolicyStatus)
                     .HasMaxLength(50)
@@ -87,11 +83,11 @@ namespace PolicySubmission.DatabaseEntity
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Member)
-                    .WithMany()
-                    .HasForeignKey(d => d.MemberId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Policy__MemberId__35BCFE0A");
+                //entity.HasOne(d => d.Member)
+                //    .WithMany(p => p.Policies)
+                //    .HasForeignKey(d => d.MemberId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__Policy__MemberId__38996AB5");
             });
 
             modelBuilder.Entity<User>(entity =>
