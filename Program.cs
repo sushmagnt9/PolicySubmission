@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IRegistrationService, RegistrationService>();
+builder.Services.AddTransient<IPolicyService, PolicyService>();
 builder.Services.AddDbContext<PolicySubmissionContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {

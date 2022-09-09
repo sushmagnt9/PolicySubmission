@@ -41,17 +41,18 @@ namespace PolicySubmission.Service
         //    return _policySubmissionContext.MemberRegistrations.Where(x => (x.FirstName == member.FirstName && x.LastName == member.LastName)).ToList();
         //}
 
-        public object GetMemberById(int MemberId)
+        public object GetMemberById(int MemberId,string FirstName,string LastName)
         {
             var user = _policySubmissionContext.MemberRegistrations.Where(b => b.MemberId == MemberId).FirstOrDefault();
             var x = from m in _policySubmissionContext.MemberRegistrations join p in _policySubmissionContext.Policies
                     on m.MemberId equals p.MemberId into ts  from t in ts.DefaultIfEmpty() 
-                    where m.MemberId == MemberId
+                    where m.MemberId == MemberId || m.FirstName == FirstName || m.LastName == LastName
                     select new{MemberId =m.MemberId,PolicyId= t.MemberId == null ? 0 : (t.MemberId),UserName = m.UserName,FirstName = m.FirstName,
                     LastName = m.LastName,
                         //policyId= t.PolicyId == null ? 0 : (t.PolicyId),
                         policyStatus = (t.PolicyStatus == null || t.PolicyStatus == "" ) ? "No Policy Found" : t.PolicyStatus, policyType = t.PolicyType , 
-                        premiumAmount = t.PremiumAmount, CreatedDate = t.CreatedDate
+                        PremiumAmount =t.PremiumAmount == null ? "0" :(t.PremiumAmount),
+                        PolicyEffectiveDate = t.PolicyEffectiveDate == null ? DateTime.Now : t.PolicyEffectiveDate
                     };
             return x;
         }
