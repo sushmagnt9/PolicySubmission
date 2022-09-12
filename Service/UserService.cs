@@ -18,14 +18,19 @@ namespace PolicySubmission.Service
         {
             try
             {
-                _policySubmissionContext.Users.Add(user);
-                _policySubmissionContext.SaveChanges();
+                if (!string.IsNullOrWhiteSpace(user.UserName) || !string.IsNullOrWhiteSpace(user.Password))
+                {
+                    _policySubmissionContext.Users.Add(user);
+                    _policySubmissionContext.SaveChanges();
+                    return "User Details saved sucessfully";
+                }
+                return "Details invalid";
             }
             catch (Exception ex)
             {
                 return $"User Operation failed {ex.Message}";
             }
-            return "User Details saved sucessfully";
+           
 
         }
     }

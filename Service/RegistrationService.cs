@@ -17,24 +17,29 @@ namespace PolicySubmission.Service
         {
             try
             {
-                MemberRegistration m = new MemberRegistration();
-                m.UserName = member.UserName;
-                m.FirstName = member.FirstName;
-                m.LastName = member.LastName;
-                m.Email = member.Email;
-                m.Dob = member.Dob;
-                m.Address = member.Address;
-                m.State = member.State;
-                m.Email = member.Email;
-                _policySubmissionContext.MemberRegistrations.Add(m);
-                _policySubmissionContext.SaveChanges();
+                if (!string.IsNullOrWhiteSpace(member.UserName) && !string.IsNullOrWhiteSpace(member.FirstName) && !string.IsNullOrWhiteSpace(member.LastName)
+                    && !string.IsNullOrWhiteSpace(member.Email) && !string.IsNullOrWhiteSpace(member.State) && !string.IsNullOrWhiteSpace(member.Address) &&
+                    !string.IsNullOrWhiteSpace(member.State))
+                    {
+                    MemberRegistration m = new MemberRegistration();
+                    m.UserName = member.UserName;
+                    m.FirstName = member.FirstName;
+                    m.LastName = member.LastName;
+                    m.Email = member.Email;
+                    m.Dob = member.Dob;
+                    m.Address = member.Address;
+                    m.State = member.State;
+                    _policySubmissionContext.MemberRegistrations.Add(m);
+                    _policySubmissionContext.SaveChanges();
+                    return "Member Details saved sucessfully";
+                }
+                return "invalid data";
             }
             catch (Exception ex)
             {
                 return $"member Operation failed {ex.Message}";
             }
-            return "Member Details saved sucessfully";
-
+        
         }
         //public List<MemberRegistration> SearchMember(MemberRegistration member)
         //{
@@ -46,7 +51,7 @@ namespace PolicySubmission.Service
             var user = _policySubmissionContext.MemberRegistrations.Where(b => b.MemberId == MemberId).FirstOrDefault();
             var x = from m in _policySubmissionContext.MemberRegistrations join p in _policySubmissionContext.Policies
                     on m.MemberId equals p.MemberId into ts  from t in ts.DefaultIfEmpty() 
-                    where m.MemberId == MemberId || m.FirstName == FirstName || m.LastName == LastName
+                    where m.MemberId == MemberId || (m.FirstName == FirstName && m.LastName == LastName) 
                     select new{MemberId =m.MemberId,PolicyId= t.MemberId == null ? 0 : (t.MemberId),UserName = m.UserName,FirstName = m.FirstName,
                     LastName = m.LastName,
                         //policyId= t.PolicyId == null ? 0 : (t.PolicyId),
@@ -54,7 +59,14 @@ namespace PolicySubmission.Service
                         PremiumAmount =t.PremiumAmount == null ? "0" :(t.PremiumAmount),
                         PolicyEffectiveDate = t.PolicyEffectiveDate == null ? DateTime.Now : t.PolicyEffectiveDate
                     };
-            return x;
+            if (x.Count() > 0)
+            {
+                return x;
+            }
+            else
+            {
+                return "No record found";
+            }
         }
     }
 }
