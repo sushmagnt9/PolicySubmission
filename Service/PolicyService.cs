@@ -30,5 +30,27 @@ namespace PolicySubmission.Service
             return "policy Details saved sucessfully";
 
         }
+        public string UpdatePolicy(Policy policy)
+        {
+            var result = _policySubmissionContext.Policies.Where(x => x.MemberId == policy.MemberId).FirstOrDefault();
+                //_policySubmissionContext.Policies.Where(x => x.MemberId == policy.MemberId).FirstOrDefault();
+            string message = string.Empty;
+             if(result != null)
+             {
+                result.PolicyId = policy.PolicyId;
+                result.PolicyStatus = policy.PolicyStatus;
+                result.PolicyType = policy.PolicyType;
+                result.PremiumAmount = policy.PremiumAmount;
+                result.PolicyEffectiveDate = policy.PolicyEffectiveDate;
+                result.MemberId = policy.MemberId;
+                _policySubmissionContext.SaveChanges();
+                return $"Policy is updated for {policy.PolicyId}";
+            }
+            else
+            {
+                message = "Invalid input";
+            }
+            return message;
+        }
     }
 }

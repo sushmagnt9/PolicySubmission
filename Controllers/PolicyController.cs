@@ -21,5 +21,12 @@ namespace PolicySubmission.Controllers
             //return Ok(new { _result = result });
             
         }
+        [HttpPut("UpdatePolicy")]
+        public ActionResult UpdatePolicy([FromBody] Policy policy)
+        {
+
+            string result = _iPolicyService.UpdatePolicy(policy);
+            return new JsonResult(result);
+        }
     }
 }
