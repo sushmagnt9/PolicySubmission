@@ -37,7 +37,7 @@ namespace PolicySubmission.Service
             string message = string.Empty;
              if(result != null)
              {
-                result.PolicyId = policy.PolicyId;
+                //result.PolicyId = policy.PolicyId;
                 result.PolicyStatus = policy.PolicyStatus;
                 result.PolicyType = policy.PolicyType;
                 result.PremiumAmount = policy.PremiumAmount;

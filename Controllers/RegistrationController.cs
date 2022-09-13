@@ -36,13 +36,13 @@ namespace PolicySubmission.Controllers
         //    }
         //}
         [HttpGet("GetMemberById")]
-        public ActionResult<List<object>> GetMemberById(string userId,string? FirstName,string? LastName)
+        public ActionResult<List<object>> GetMemberById(string userId,string? FirstName,string? LastName,string? policyStatus)
         {
             string result = string.Empty;
             try
             {
                 List<object> members = new List<object>();
-                object member = _iRegistrationService.GetMemberById(Convert.ToInt32(userId),FirstName,LastName);
+                object member = _iRegistrationService.GetMemberById(Convert.ToInt32(userId),FirstName,LastName,policyStatus);
                 members.Add(member);
                 if (member != null)
                             return Ok(members);
