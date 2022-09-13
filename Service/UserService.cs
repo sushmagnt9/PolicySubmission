@@ -13,7 +13,21 @@ namespace PolicySubmission.Service
         {
             return _policySubmissionContext.Users.ToList();
         }
-
+        public User Login(User user)
+        {
+            try
+            {
+                if (_policySubmissionContext.Users.Where(s => s.Password == user.Password && s.UserName == user.UserName).Count() == 0)
+                {
+                    return new User();
+                }
+                return _policySubmissionContext.Users.Where(s => s.Password == user.Password && s.UserName == user.UserName).First();
+            }
+            catch (Exception ex)
+            {
+                return new User { UserName = "Invalid" };
+            }
+        }
         public string CreateUser(User user)
         {
             try

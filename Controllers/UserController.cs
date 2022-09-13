@@ -18,6 +18,11 @@ namespace PolicySubmission.Controllers
         {
             return Ok(_iUserService.GetAllUsers());
         }
+        [HttpPost("Login")]
+        public User Login(User user)
+        {
+            return _iUserService.Login(user);
+        }
         [HttpPost]
         public ActionResult<string> CreateUser([FromBody] User user)
         {
