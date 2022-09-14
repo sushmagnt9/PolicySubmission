@@ -13,6 +13,10 @@ namespace PolicySubmission.Service
         {
             try
             {
+                if(_policySubmissionContext.Policies.Where(h => h.PolicyType == policy.PolicyType && h.MemberId == policy.MemberId).Count()>0)
+                {
+                    return $"Policy already exists with MemberId {policy.MemberId}";
+                }
                 Policy p = new Policy();
                 p.PolicyId = policy.PolicyId;
                 p.PolicyStatus = policy.PolicyStatus;
