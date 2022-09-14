@@ -32,7 +32,7 @@ namespace PolicySubmission.Service
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(user.UserName) || !string.IsNullOrWhiteSpace(user.Password))
+                if (!string.IsNullOrWhiteSpace(user.UserName) && !string.IsNullOrWhiteSpace(user.Password) && !string.IsNullOrWhiteSpace(user.UserRole))
                 {
                     _policySubmissionContext.Users.Add(user);
                     _policySubmissionContext.SaveChanges();

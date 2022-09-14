@@ -61,7 +61,7 @@ namespace PolicySubmission.Service
                         //policyId= t.PolicyId == null ? 0 : (t.PolicyId),
                         policyStatus = (t.PolicyStatus == null || t.PolicyStatus == "" ) ? "No Policy Found" : t.PolicyStatus, policyType = t.PolicyType , 
                         PremiumAmount =t.PremiumAmount == null ? "0" :(t.PremiumAmount),
-                        PolicyEffectiveDate = t.PolicyEffectiveDate == null ? DateTime.Now : t.PolicyEffectiveDate
+                        PolicyEffectiveDate = t.PolicyEffectiveDate == null ? DateTime.Now.ToString("yyyy/MM/dd") : t.PolicyEffectiveDate.ToString("yyyy/MM/dd")
                     };
             if (x.Count() > 0)
             {
