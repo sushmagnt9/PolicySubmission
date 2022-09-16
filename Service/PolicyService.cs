@@ -15,7 +15,7 @@ namespace PolicySubmission.Service
             {
                 if(_policySubmissionContext.Policies.Where(h => h.PolicyType == policy.PolicyType && h.MemberId == policy.MemberId).Count()>0)
                 {
-                    return $"Policy already exists with MemberId {policy.MemberId}";
+                    return $"Policy already exists with MemberId:{policy.MemberId}";
                 }
                 Policy p = new Policy();
                 p.PolicyId = policy.PolicyId;
@@ -36,6 +36,8 @@ namespace PolicySubmission.Service
         }
         public string UpdatePolicy(Policy policy)
         {
+            try 
+            { 
             var result = _policySubmissionContext.Policies.Where(x => x.MemberId == policy.MemberId).FirstOrDefault();
                 //_policySubmissionContext.Policies.Where(x => x.MemberId == policy.MemberId).FirstOrDefault();
             string message = string.Empty;
@@ -48,13 +50,23 @@ namespace PolicySubmission.Service
                 result.PolicyEffectiveDate = policy.PolicyEffectiveDate;
                 result.MemberId = policy.MemberId;
                 _policySubmissionContext.SaveChanges();
-                return $"Policy is updated for {policy.PolicyId}";
+                return $"Policy is updated for PolicyId:{result.PolicyId}";
             }
             else
             {
-                message = "Invalid input";
+                return "InValid input";
             }
-            return message;
-        }
+          }
+            catch(Exception ex)
+            {
+                return "Error occurred in Update";
+            }
+    //}
+    //else
+    //{
+    //    message = "Invalid input";
+    //}
+    //return message;
+}
     }
 }
